@@ -32,8 +32,13 @@ contract FundMeTest is Test{
     // 4. Staging
     // — Testing our code in a real environment that is not prod
 
-    function testVersionIsAccurate() public view {
-        uint256 version = fundMe.getVersion();
-        assertEq(version,4);
-    }
+      function testPriceFeedVersionIsAccurate() public view {
+        if (block.chainid == 11155111) {
+            uint256 version = fundMe.getVersion();
+            assertEq(version, 4);
+        } else if (block.chainid == 1) {
+            uint256 version = fundMe.getVersion();
+            assertEq(version, 6);
+        }
+  }
 }
